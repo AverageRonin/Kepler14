@@ -1,10 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://crl4ua8nlpr7b"]
+[gd_scene load_steps=6 format=3 uid="uid://crl4ua8nlpr7b"]
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_q0abo"]
+[ext_resource type="Script" path="res://Player/Camera/CameraHolder.gd" id="2_85q0u"]
+[ext_resource type="Script" path="res://Player/Camera/CamCast.gd" id="3_61b1p"]
+[ext_resource type="PackedScene" uid="uid://c2gj4u716ry7h" path="res://Player/Shot Meeter/shot_meeter.tscn" id="4_2or0f"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rp184"]
 
-[node name="CharacterBody3D" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_q0abo")
 
 [node name="player_collision" type="CollisionShape3D" parent="."]
@@ -13,5 +16,16 @@ shape = SubResource("CapsuleShape3D_rp184")
 
 [node name="CameraHolder" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, -0.5)
+script = ExtResource("2_85q0u")
 
-[node name="Camera3D" type="Camera3D" parent="CameraHolder"]
+[node name="PlayerCam" type="Camera3D" parent="CameraHolder"]
+
+[node name="CamCast" type="RayCast3D" parent="CameraHolder/PlayerCam"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+script = ExtResource("3_61b1p")
+
+[node name="Shot Meeter" parent="CameraHolder/PlayerCam" instance=ExtResource("4_2or0f")]
+offset_left = 298.568
+offset_top = 61.5946
+offset_right = 298.568
+offset_bottom = 61.5946
