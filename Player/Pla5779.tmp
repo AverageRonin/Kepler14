@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Player/Player.gd" id="1_q0abo"]
 [ext_resource type="Script" path="res://Player/Camera/CameraHolder.gd" id="2_85q0u"]
-[ext_resource type="Script" path="res://Player/Camera/InteractRay.gd" id="3_letxc"]
+[ext_resource type="Script" path="res://Player/Camera/CamCast.gd" id="3_61b1p"]
 [ext_resource type="Script" path="res://Player/ShotMeter.gd" id="4_rtc4q"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rp184"]
@@ -20,9 +20,9 @@ script = ExtResource("2_85q0u")
 
 [node name="PlayerCam" type="Camera3D" parent="CameraHolder"]
 
-[node name="InteractRay" type="RayCast3D" parent="CameraHolder/PlayerCam"]
+[node name="CamCast" type="RayCast3D" parent="CameraHolder/PlayerCam"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
-script = ExtResource("3_letxc")
+script = ExtResource("3_61b1p")
 
 [node name="ShotMeter" type="ProgressBar" parent="CameraHolder/PlayerCam"]
 visible = false
