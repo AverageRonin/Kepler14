@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://b8un5shhc6los"]
+[gd_scene load_steps=12 format=3 uid="uid://b8un5shhc6los"]
 
 [ext_resource type="PackedScene" uid="uid://crl4ua8nlpr7b" path="res://Player/Player.tscn" id="1_36b0w"]
 [ext_resource type="PackedScene" uid="uid://b8qkquw4177rh" path="res://Assets/Interactables/box.tscn" id="2_wb7va"]
+[ext_resource type="PackedScene" uid="uid://cp0udb2gto6yi" path="res://Assets/Interactables/Balls/basketball.tscn" id="3_8tqho"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_m73sr"]
 
@@ -110,3 +111,6 @@ shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Better Stuff"]
 environment = SubResource("Environment_0lfxg")
+
+[node name="Basketball" parent="." instance=ExtResource("3_8tqho")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.34073, 2.40288, -3.68774)
