@@ -7,15 +7,17 @@ const INERTIA = 0.1  # Adjust this value to control the inertia
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var shot_meter
-var hands_full = false
 var InteractRay
-var Interactable
+var Interactable = null
+var hands
+var hands_full = false
 var current_velocity
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	shot_meter = $CameraHolder/PlayerCam/ShotMeter
 	InteractRay = $CameraHolder/PlayerCam/InteractRay
+	hands = $Hands
 
 func _input(event):
 	if event is InputEventMouseMotion:
@@ -26,27 +28,32 @@ func _input(event):
 	elif event.is_action_released("Shoot"): # or released
 		shot_meter.Pause_Fill()
 		
-	if event.is_action_pressed("Interact"): #Interactions
+	if event.is_action_pressed("Interact"): # Interactions
 		if not hands_full:
 			InteractRay.InteractNow()
 			Interactable = InteractRay.ObjectCollider
-			print(Interactable)
-			
+			if Interactable:  # Check if Interactable is not null
+				Interactable.global_position = hands.global_position  # Assuming you want to attach the object to hands
+				hands_full = true
+			else:
+				print("No interactable object detected.")
 
 func _physics_process(delta):
-	
 	current_velocity = self.velocity.length()
 	print(current_velocity)
 	
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 	
-	if (Input.is_action_just_pressed("Shoot") or Input.is_action_just_pressed("Jump")) and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+	handle_movement(delta)
+	handle_jumping()
 	
+	move_and_slide()
+
+func handle_movement(delta):
 	if is_on_floor(): 
 		var input_dir = Input.get_vector("a", "d", "w", "s") # Get the input direction
-		var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized() #Handle the movement/deceleration.
+		var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized() # Handle the movement/deceleration.
 		
 		var target_speed = SPEED
 		if Input.is_action_pressed("Sprint"):
@@ -60,5 +67,7 @@ func _physics_process(delta):
 		else:
 			velocity.x = lerp(float(velocity.x), 0.0, INERTIA)
 			velocity.z = lerp(float(velocity.z), 0.0, INERTIA)
-	
-	move_and_slide()
+
+func handle_jumping():
+	if (Input.is_action_just_pressed("Shoot") or Input.is_action_just_pressed("Jump")) and is_on_floor():
+		velocity.y = JUMP_VELOCITY
