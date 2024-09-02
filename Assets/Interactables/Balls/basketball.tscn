@@ -4,7 +4,7 @@
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_k3ilx"]
 
-[node name="Basketball" type="RigidBody3D"]
+[node name="Basketball" type="RigidBody3D" groups=["Ball"]]
 mass = 0.6
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

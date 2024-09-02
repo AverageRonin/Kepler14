@@ -36,5 +36,5 @@ script = ExtResource("4_rtc4q")
 [node name="MeterTimer" type="Timer" parent="CameraHolder/PlayerCam/ShotMeter"]
 one_shot = true
 
-[node name="Hands" type="Node3D" parent="."]
+[node name="Hands" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.784, -1.51072)

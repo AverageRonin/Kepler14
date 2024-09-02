@@ -40,7 +40,6 @@ func _input(event):
 
 func _physics_process(delta):
 	current_velocity = self.velocity.length()
-	print(current_velocity)
 	
 	if not is_on_floor():
 		velocity.y -= gravity * delta
@@ -50,7 +49,7 @@ func _physics_process(delta):
 	
 	move_and_slide()
 
-func handle_movement(delta):
+func handle_movement(_delta):
 	if is_on_floor(): 
 		var input_dir = Input.get_vector("a", "d", "w", "s") # Get the input direction
 		var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized() # Handle the movement/deceleration.
